@@ -10,3 +10,4 @@ actix-web="4"
 diesel = { version = "2.0.0", features = ["postgres"] }
 dotenvy = "0.15"
 env_logger = "*"
+serde = { version = "1.0", features = ["derive"] }
