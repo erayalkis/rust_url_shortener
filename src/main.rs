@@ -30,7 +30,7 @@ async fn main() -> std::io::Result<()> {
             .service(echo)
             .service(create_post)
             .route("/hey", web::get().to(manual_hello))
-            .wrap(Logger::default())
+            .wrap(Logger::new("%a \"%r\" %s %b \"%{Referer}i\" \"%{User-Agent}i\" %T"))
     })
     .bind(("127.0.0.1", 8080))?
     .run()
