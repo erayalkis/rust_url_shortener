@@ -6,8 +6,18 @@ async fn hello() -> impl Responder {
     HttpResponse::Ok().body("Hello world!")
 }
 
-#[post("/posts/new")]
-async fn create_post(req_body: String) -> impl Responder {
+#[get("/urls")]
+async fn get_urls() -> impl Responder  {
+    HttpResponse::Ok().body("Sup")
+}
+
+#[get("/urls/:id")]
+async fn get_url(req_body: String) -> impl Responder {
+    HttpResponse::Ok().body(req_body)
+}
+
+#[post("/urls")]
+async fn create_url(req_body: String) -> impl Responder {
     HttpResponse::Ok().body(req_body)
 }
 
@@ -28,7 +38,9 @@ async fn main() -> std::io::Result<()> {
         App::new()
             .service(hello)
             .service(echo)
-            .service(create_post)
+            .service(get_url)
+            .service(get_urls)
+            .service(create_url)
             .route("/hey", web::get().to(manual_hello))
             .wrap(Logger::new("%a \"%r\" %s %b \"%{Referer}i\" \"%{User-Agent}i\" %T"))
     })
